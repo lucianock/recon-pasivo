@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Revisión de Exposición Externa — {{ dominio }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0d10; --card:#15171b; --card2:#191b20; --line:rgba(255,255,255,0.09);
+  --accent:#8b7cf6;
+  --text:#eceef1; --muted:#9599a3; --dim:#63666f;
+  --alta:#e35d6a; --media:#d1a054; --baja:#6ea8d8; --info:#7c8797; --ok:#5fb488;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:15px}
+.page{max-width:880px;margin:0 auto;padding:52px 46px}
+h1,h2,h3,h4{font-family:'IBM Plex Serif',serif;font-weight:600;line-height:1.25}
+.mono{font-family:'IBM Plex Mono',monospace}
+a{color:var(--accent);text-decoration:none}
+
+/* Portada — tipo documento, sin icono decorativo */
+.cover{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:30px}
+.cover .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px}
+.cover .brand{font-family:'IBM Plex Serif';font-weight:700;font-size:17px;letter-spacing:.01em}
+.cover .brand span{color:var(--accent)}
+.cover .stamp{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line);padding:5px 11px;border-radius:3px}
+.cover .kicker{font-family:'IBM Plex Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.cover h1{font-size:30px;margin:10px 0 14px;color:var(--text)}
+.cover .metarow{display:flex;flex-wrap:wrap;gap:22px;font-size:13px;color:var(--muted);margin-top:6px}
+.cover .metarow div b{color:var(--text);font-weight:500}
+.cover .scope{margin-top:18px;font-size:13px;color:var(--dim);border-left:2px solid var(--accent);padding-left:12px}
+
+/* Semáforo + resumen ejecutivo */
+.exec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px;margin-bottom:26px}
+.sem{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.sem .bar{width:5px;align-self:stretch;min-height:40px;border-radius:3px;background:var(--sev-color)}
+.sem .st h2{font-size:19px}
+.sem .st p{color:var(--muted);font-size:13.5px;margin-top:2px}
+.counts{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 4px}
+.pill{font-family:'IBM Plex Mono';font-size:11.5px;padding:5px 12px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
+.pill b{font-weight:600}
+.pill.alta{color:var(--alta);border-color:rgba(227,93,106,.4)}
+.pill.media{color:var(--media);border-color:rgba(209,160,84,.4)}
+.pill.baja{color:var(--baja);border-color:rgba(110,168,216,.4)}
+.pill.info{color:var(--info)}
+.exec .lead{margin-top:16px;color:var(--muted);font-size:14px}
+
+/* Tabla resumen de hallazgos */
+.sumtable{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:13.5px}
+.sumtable th{text-align:left;font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);padding:8px 10px;border-bottom:1px solid var(--line)}
+.sumtable td{padding:10px;border-bottom:1px solid var(--line);color:var(--muted)}
+.sumtable td.id{font-family:'IBM Plex Mono';color:var(--dim);white-space:nowrap}
+.sumtable td.tit{color:var(--text)}
+.sumtable td.sv{white-space:nowrap}
+.sumtable td.sv b{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.sumtable td.sv.Crítica b,.sumtable td.sv.Alta b{color:var(--alta)}
+.sumtable td.sv.Media b{color:var(--media)}
+.sumtable td.sv.Baja b{color:var(--baja)}
+.sumtable td.sv.Informativa b{color:var(--info)}
+
+/* Secciones */
+.sec{margin-bottom:32px}
+.sec > h2{font-size:17px;margin-bottom:4px;color:var(--text)}
+.sec > h2 .n{font-family:'IBM Plex Mono';color:var(--dim);font-size:12px;margin-right:8px;font-weight:400}
+.sec > .sub{color:var(--dim);font-size:13px;margin-bottom:16px}
+
+/* Hallazgos */
+.finding{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--sev-color, var(--line));border-radius:8px;padding:20px 22px;margin-bottom:12px}
+.finding .top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:10px}
+.finding h3{font-size:15.5px;color:var(--text)}
+.finding h3 .id{font-family:'IBM Plex Mono';color:var(--dim);font-weight:400;font-size:13px;margin-right:6px}
+.finding .cat{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--dim);margin-top:4px;letter-spacing:.03em}
+.sev{font-family:'IBM Plex Mono';font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:3px;white-space:nowrap;flex-shrink:0;border:1px solid}
+.sev.Crítica,.sev.Alta{color:var(--alta);background:rgba(227,93,106,.1);border-color:rgba(227,93,106,.35)}
+.sev.Media{color:var(--media);background:rgba(209,160,84,.1);border-color:rgba(209,160,84,.35)}
+.sev.Baja{color:var(--baja);background:rgba(110,168,216,.1);border-color:rgba(110,168,216,.35)}
+.sev.Informativa{color:var(--info);background:rgba(124,135,151,.1);border-color:var(--line)}
+.finding p{font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.finding .ev{background:#0a0b0d;border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin-bottom:12px}
+.finding .ev .lbl{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+.finding .ev code{font-family:'IBM Plex Mono';font-size:12px;color:#b9afef;word-break:break-all;display:block;line-height:1.8}
+.finding .rec{font-size:13px;color:var(--muted)}
+.finding .rec b{color:var(--ok);font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px}
+
+/* Cosas bien */
+.good{background:rgba(95,180,136,.06);border:1px solid rgba(95,180,136,.25);border-radius:8px;padding:20px 22px}
+.good h3{font-size:14.5px;color:var(--ok);margin-bottom:12px}
+.good li{list-style:none;font-size:13.5px;color:var(--muted);padding:5px 0 5px 20px;position:relative}
+.good li::before{content:'+';position:absolute;left:2px;color:var(--ok);font-family:'IBM Plex Mono';font-weight:700}
+
+/* Búsquedas abiertas */
+.dorks{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.dorks .d{padding:10px 0;border-bottom:1px solid var(--line)}
+.dorks .d:last-child{border-bottom:none}
+.dorks .d .desc{font-size:13px;color:var(--muted);margin-bottom:4px}
+.dorks .d a{font-family:'IBM Plex Mono';font-size:12px;word-break:break-all}
+
+/* Puente / CTA */
+.bridge{background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:28px;margin:34px 0 22px}
+.bridge h2{font-size:19px;margin-bottom:10px;color:var(--text)}
+.bridge p{color:var(--muted);font-size:14px;max-width:580px;margin:0 0 18px}
+.bridge .cta{display:inline-block;font-family:'IBM Plex Mono';font-size:12.5px;font-weight:500;padding:12px 22px;border-radius:4px;background:var(--accent);color:#0c0d10}
+.bridge .alt{margin-top:12px;font-size:13px;color:var(--dim)}
+
+/* Legal / footer */
+.legal{border-top:1px solid var(--line);margin-top:34px;padding-top:18px;font-size:11.5px;color:var(--dim);line-height:1.7}
+.legal b{color:var(--muted)}
+
+@media print{
+  body{background:#fff;color:#12141a;font-size:11.5px}
+  .page{padding:0}
+  .exec,.finding,.good,.dorks{break-inside:avoid}
+  a{color:#5b4bc4}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Portada -->
+  <div class="cover">
+    <div class="top">
+      <div class="brand">recon <span>pasivo</span></div>
+      <div class="stamp">Confidencial</div>
+    </div>
+    <div class="kicker">Revisión de Exposición Externa</div>
+    <h1>{{ dominio }}</h1>
+    <div class="metarow">
+      <div><b>Fecha</b> · {{ fecha }}</div>
+      <div><b>Alcance</b> · Pasivo, no intrusivo</div>
+    </div>
+    <div class="scope">{{ alcance }}</div>
+  </div>
+
+  <!-- Resumen ejecutivo -->
+  <div class="exec">
+    <div class="sem" style="--sev-color:{{ sem_color }}">
+      <div class="bar"></div>
+      <div class="st">
+        <h2>{{ sem_texto }}</h2>
+        <p>Evaluación general de la superficie visible desde internet, sin acceso a sistemas.</p>
+      </div>
+    </div>
+    <div class="counts">
+      {% if conteo.get('Alta') %}<span class="pill alta"><b>{{ conteo['Alta'] }}</b> Alta</span>{% endif %}
+      {% if conteo.get('Crítica') %}<span class="pill alta"><b>{{ conteo['Crítica'] }}</b> Crítica</span>{% endif %}
+      {% if conteo.get('Media') %}<span class="pill media"><b>{{ conteo['Media'] }}</b> Media</span>{% endif %}
+      {% if conteo.get('Baja') %}<span class="pill baja"><b>{{ conteo['Baja'] }}</b> Baja</span>{% endif %}
+      {% if conteo.get('Informativa') %}<span class="pill info"><b>{{ conteo['Informativa'] }}</b> Informativa</span>{% endif %}
+      <span class="pill"><b>{{ total_subdominios }}</b> subdominios públicos</span>
+    </div>
+    <p class="lead">Este informe resume lo que cualquier persona puede descubrir de {{ dominio }} usando
+    únicamente información pública (DNS, registros de certificados, cabeceras del sitio). No se accedió a
+    ningún sistema ni se ejecutó ningún escaneo intrusivo. Los hallazgos se ordenan por severidad, cada uno
+    con evidencia y una recomendación accionable.</p>
+  </div>
+
+  <!-- Tabla resumen -->
+  {% if hallazgos %}
+  <table class="sumtable">
+    <tr><th>ID</th><th>Hallazgo</th><th>Severidad</th><th>Categoría</th></tr>
+    {% for h in hallazgos %}
+    <tr>
+      <td class="id">{{ h.id }}</td>
+      <td class="tit">{{ h.titulo }}</td>
+      <td class="sv {{ h.severidad }}"><b>{{ h.severidad }}</b></td>
+      <td>{{ h.categoria }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  <!-- Hallazgos -->
+  <div class="sec">
+    <h2><span class="n">01</span>Hallazgos en detalle</h2>
+    <div class="sub">Ordenados de mayor a menor severidad. Cada hallazgo se basa en datos públicos verificables.</div>
+    {% for h in hallazgos %}
+    <div class="finding" style="--sev-color:{% if h.severidad in ['Crítica','Alta'] %}var(--alta){% elif h.severidad == 'Media' %}var(--media){% elif h.severidad == 'Baja' %}var(--baja){% else %}var(--info){% endif %}">
+      <div class="top">
+        <div>
+          <h3><span class="id">{{ h.id }}</span>{{ h.titulo }}</h3>
+          <div class="cat">{{ h.categoria }}</div>
+        </div>
+        <span class="sev {{ h.severidad }}">{{ h.severidad }}</span>
+      </div>
+      <p>{{ h.impacto }}</p>
+      {% if h.evidencia %}
+      <div class="ev">
+        <div class="lbl">Evidencia (información pública)</div>
+        {% for e in h.evidencia %}<code>{{ e }}</code>{% endfor %}
+      </div>
+      {% endif %}
+      <div class="rec"><b>Recomendación</b>{{ h.recomendacion }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Cosas bien -->
+  {% if bien %}
+  <div class="sec">
+    <h2><span class="n">02</span>Lo que ya está bien resuelto</h2>
+    <div class="sub">Un informe honesto también reconoce los controles correctos.</div>
+    <div class="good">
+      <h3>Controles adecuados detectados</h3>
+      <ul>
+        {% for b in bien %}<li>{{ b }}</li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Búsquedas abiertas -->
+  {% if dorks %}
+  <div class="sec">
+    <h2><span class="n">03</span>Búsquedas abiertas</h2>
+    <div class="sub">Consultas sobre índices públicos (Google) — podés verificarlas vos mismo con un clic.</div>
+    <div class="dorks">
+      {% for dq in dorks %}
+      <div class="d">
+        <div class="desc">{{ dq.descripcion }}</div>
+        <a href="{{ dq.url }}" target="_blank" rel="noopener">{{ dq.query }}</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Metodología -->
+  <div class="sec">
+    <h2><span class="n">04</span>Metodología y alcance</h2>
+    <div class="sub">Transparencia total sobre qué se hizo y qué no.</div>
+    <div class="finding" style="border-left-color:var(--line)">
+      <p><b style="color:var(--text)">Qué se consultó:</b> registros DNS y autenticación de correo (SPF/DKIM/DMARC),
+      certificado y protocolo TLS, cabeceras de seguridad de la página pública, subdominios listados en los registros
+      públicos de Certificate Transparency, correos publicados en el propio sitio y servicios ya indexados por
+      buscadores de dispositivos.</p>
+      <p style="margin-bottom:0"><b style="color:var(--text)">Qué NO se hizo:</b> no se accedió a ningún sistema, no se
+      probaron credenciales, no se ejecutó ningún escaneo activo de puertos ni pruebas de intrusión. Todo lo anterior
+      requeriría una autorización firmada previa. Esta revisión se mantiene estrictamente del lado de la información pública.</p>
+    </div>
+  </div>
+
+  <!-- Puente -->
+  <div class="bridge">
+    <h2>Esto es solo lo visible desde afuera</h2>
+    <p>Una evaluación autorizada, con alcance acordado por escrito, permite validar en profundidad estos puntos y
+    descubrir lo que no se ve desde la superficie.</p>
+  </div>
+
+  <!-- Legal -->
+  <div class="legal">
+    <p><b>Aviso.</b> Revisión no intrusiva basada exclusivamente en información de acceso público, obtenida
+    sin acceder a los sistemas de {{ dominio }}, sin pruebas activas, sin credenciales y sin explotar nada.
+    Generado con recon-pasivo (https://github.com/lucianock/recon-pasivo).</p>
+  </div>
+
+</div>
+</body>
+</html>
